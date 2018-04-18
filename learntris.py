@@ -16,9 +16,14 @@ def read_matrix():
         new_row = line.replace(' ', '')
         PLAY_AREA[rnum] = new_row
 
+def clear_matrix():
+    global PLAY_AREA
+    PLAY_AREA = ['.'*10 for row in range(22)]
+
 execute_instruction = {'q': sys.exit, 
                        'p': print_matrix,
-                       'g': read_matrix}
+                       'g': read_matrix,
+                       'c': clear_matrix}
 
 if __name__ == '__main__':
     while True:
