@@ -3,8 +3,14 @@
 from __future__ import print_function
 import sys
 
+N_ROWS = 22
+N_COLUMNS = 10
 # PLAY_AREA: a list of strings where each string represents one row
-PLAY_AREA = ['.'*10 for row in range(22)]
+PLAY_AREA = ['.'*N_COLUMNS for row in range(N_ROWS)]
+
+SCORE = 0
+
+N_LINES_CLEARED = 0
 
 def print_matrix():
     for row in PLAY_AREA:
@@ -18,12 +24,20 @@ def read_matrix():
 
 def clear_matrix():
     global PLAY_AREA
-    PLAY_AREA = ['.'*10 for row in range(22)]
+    PLAY_AREA = ['.'*N_COLUMNS for row in range(N_ROWS)]
+
+def display_score():
+    print(SCORE)
+
+def display_n_lines_cleared():
+    print(N_LINES_CLEARED)
 
 execute_instruction = {'q': sys.exit, 
                        'p': print_matrix,
                        'g': read_matrix,
-                       'c': clear_matrix}
+                       'c': clear_matrix,
+                       '?s': display_score,
+                       '?n': display_n_lines_cleared}
 
 if __name__ == '__main__':
     while True:
