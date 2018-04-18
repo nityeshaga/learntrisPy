@@ -3,54 +3,69 @@
 from __future__ import print_function
 import sys
 
-N_ROWS = 22
-N_COLUMNS = 10
+TETRAMINO = {'I': ['....', 'cccc', '....', '....'],
+             'O': ['yy', 'yy']}
 
-# PLAY_AREA: a list of strings where each string represents one row
-PLAY_AREA = ['.'*N_COLUMNS for row in range(N_ROWS)]
-
-SCORE = 0
-
-N_LINES_CLEARED = 0
-
-def print_matrix():
-    for row in PLAY_AREA:
+def print_matrix(matrix):
+    for row in matrix:
         print(' '.join(row))
 
-def read_matrix():
-    for rnum in range(22):
-        line = raw_input()
-        new_row = line.replace(' ', '')
-        PLAY_AREA[rnum] = new_row
+class Game:
+    N_ROWS = 22
+    N_COLUMNS = 10
 
-def clear_matrix():
-    global PLAY_AREA
-    PLAY_AREA = ['.'*N_COLUMNS for row in range(N_ROWS)]
+    # PLAY_AREA: a list of strings where each string represents one row
+    PLAY_AREA = ['.' * N_COLUMNS for row in range(N_ROWS)]
 
-def display_score():
-    print(SCORE)
+    SCORE = 0
 
-def display_n_lines_cleared():
-    print(N_LINES_CLEARED)
+    N_LINES_CLEARED = 0
 
-def one_step():
-    global N_LINES_CLEARED, SCORE
-    for rnum, row in enumerate(PLAY_AREA):
-        if not '.' in row:
-            PLAY_AREA[rnum] = '.'*N_COLUMNS
-            N_LINES_CLEARED += 1
-            SCORE += 100
+    active_tetramino = TETRAMINO['I'] # default value -- the I tetramino
 
+    def read_play_area(self):
+        for rnum in range(22):
+            line = raw_input()
+            new_row = line.replace(' ', '')
+            self.PLAY_AREA[rnum] = new_row
 
-execute_instruction = {'q': sys.exit, 
-                       'p': print_matrix,
-                       'g': read_matrix,
-                       'c': clear_matrix,
-                       '?s': display_score,
-                       '?n': display_n_lines_cleared,
-                       's': one_step}
+    def clear_matrix(self):
+        self.PLAY_AREA = ['.' * self.N_COLUMNS for row in range(self.N_ROWS)]
+
+    def display_score(self):
+        print(self.SCORE)
+
+    def display_n_lines_cleared(self):
+        print(self.N_LINES_CLEARED)
+
+    def one_step(self):
+        for rnum, row in enumerate(self.PLAY_AREA):
+            if not '.' in row:
+                self.PLAY_AREA[rnum] = '.' * self.N_COLUMNS
+                self.N_LINES_CLEARED += 1
+                self.SCORE += 100
+
+    def set_active_tetramino(self, tetramino_key):
+        self.active_tetramino = TETRAMINO[tetramino_key]
+
+    def display_active_tetramino(self):
+        print_matrix(self.active_tetramino)
+
 
 if __name__ == '__main__':
+
+    myGame = Game()
+    execute_instruction = {'q': sys.exit, 
+                           'p': (lambda: print_matrix(myGame.PLAY_AREA)),
+                           'g': myGame.read_play_area,
+                           'c': myGame.clear_matrix,
+                           '?s': myGame.display_score,
+                           '?n': myGame.display_n_lines_cleared,
+                           's': myGame.one_step,
+                           't': myGame.display_active_tetramino,
+                           'I': (lambda: myGame.set_active_tetramino('I')),
+                           'O': (lambda: myGame.set_active_tetramino('O'))}
+
     while True:
         choice = raw_input()
         execute_instruction[choice]()
