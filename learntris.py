@@ -4,7 +4,12 @@ from __future__ import print_function
 import sys
 
 TETRAMINO = {'I': ['....', 'cccc', '....', '....'],
-             'O': ['yy', 'yy']}
+             'O': ['yy', 'yy'],
+             'Z': ['rr.', '.rr', '...'],
+             'S': ['.gg', 'gg.', '...'],
+             'J': ['b..', 'bbb', '...'],
+             'L': ['..o', 'ooo', '...'],
+             'T': ['.m.', 'mmm', '...']}
 
 def print_matrix(matrix):
     for row in matrix:
@@ -64,8 +69,13 @@ if __name__ == '__main__':
                            's': myGame.one_step,
                            't': myGame.display_active_tetramino,
                            'I': (lambda: myGame.set_active_tetramino('I')),
-                           'O': (lambda: myGame.set_active_tetramino('O'))}
+                           'O': (lambda: myGame.set_active_tetramino('O')),
+                           'Z': (lambda: myGame.set_active_tetramino('Z')),
+                           'S': (lambda: myGame.set_active_tetramino('S')),
+                           'J': (lambda: myGame.set_active_tetramino('J')),
+                           'L': (lambda: myGame.set_active_tetramino('L')),
+                           'T': (lambda: myGame.set_active_tetramino('T'))}
 
     while True:
-        choice = raw_input()
-        execute_instruction[choice]()
+        for choice in raw_input().split(' '):
+            execute_instruction[choice]()
