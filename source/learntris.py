@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+from __future__ import print_function
 import sys
 
 from helper import print_matrix
@@ -24,7 +25,8 @@ if __name__ == '__main__':
                            'J': (lambda: myGame.set_active_tetramino('J')),
                            'L': (lambda: myGame.set_active_tetramino('L')),
                            'T': (lambda: myGame.set_active_tetramino('T')),
-                           ')': (lambda: myGame.active_tetramino.rotate_cw())}
+                           ')': (lambda: myGame.active_tetramino.rotate_cw()),
+                           ';': (lambda: print('\n', end=''))}
 
     while True:
         for choice in raw_input().split(' '):
