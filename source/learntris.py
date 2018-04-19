@@ -23,7 +23,8 @@ if __name__ == '__main__':
                            'S': (lambda: myGame.set_active_tetramino('S')),
                            'J': (lambda: myGame.set_active_tetramino('J')),
                            'L': (lambda: myGame.set_active_tetramino('L')),
-                           'T': (lambda: myGame.set_active_tetramino('T'))}
+                           'T': (lambda: myGame.set_active_tetramino('T')),
+                           ')': (lambda: myGame.active_tetramino.rotate_cw())}
 
     while True:
         for choice in raw_input().split(' '):

@@ -15,3 +15,5 @@ class Tetramino:
     def show(self):
         print_matrix(self.tetramino_matrix)
  
+    def rotate_cw(self):
+        self.tetramino_matrix = zip(*(self.tetramino_matrix[::-1]))
