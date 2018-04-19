@@ -16,7 +16,7 @@ if __name__ == '__main__':
                            '?s': myGame.display_score,
                            '?n': myGame.display_n_lines_cleared,
                            's': myGame.one_step,
-                           't': myGame.active_tetramino.show,
+                           't': (lambda: myGame.active_tetramino.show()),
                            'I': (lambda: myGame.set_active_tetramino('I')),
                            'O': (lambda: myGame.set_active_tetramino('O')),
                            'Z': (lambda: myGame.set_active_tetramino('Z')),
