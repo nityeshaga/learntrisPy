@@ -8,7 +8,7 @@ class Game:
         self.N_COLUMNS = 10
 
         # PLAY_AREA: a list of strings where each string represents one row
-        self.PLAY_AREA = [['.' * self.N_COLUMNS] for row in range(self.N_ROWS)]
+        self.PLAY_AREA = [list('.' * self.N_COLUMNS) for row in range(self.N_ROWS)]
         self.SCORE = 0
         self.N_LINES_CLEARED = 0
         self.active_tetramino = Tetramino('I') # default value -- the I tetramino
