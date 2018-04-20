@@ -1,12 +1,12 @@
 from helper import print_matrix
 
-TETRAMINO_DICT = {'I': ['....', 'cccc', '....', '....'],
-                  'O': ['yy', 'yy'],
-                  'Z': ['rr.', '.rr', '...'],
-                  'S': ['.gg', 'gg.', '...'],
-                  'J': ['b..', 'bbb', '...'],
-                  'L': ['..o', 'ooo', '...'],
-                  'T': ['.m.', 'mmm', '...']}
+TETRAMINO_DICT = {'I': [list(elem) for elem in ['....', 'cccc', '....', '....']],
+                  'O': [list(elem) for elem in ['yy', 'yy']],
+                  'Z': [list(elem) for elem in ['rr.', '.rr', '...']],
+                  'S': [list(elem) for elem in ['.gg', 'gg.', '...']],
+                  'J': [list(elem) for elem in ['b..', 'bbb', '...']],
+                  'L': [list(elem) for elem in ['..o', 'ooo', '...']],
+                  'T': [list(elem) for elem in ['.m.', 'mmm', '...']]}
 
 class Tetramino:
     def __init__(self, shape):
