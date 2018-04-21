@@ -27,7 +27,11 @@ if __name__ == '__main__':
                            'T': (lambda: myGame.set_active_tetramino('T')),
                            ')': (lambda: myGame.active_tetramino.rotate_cw()),
                            ';': (lambda: print('\n', end='')),
-                           'P': (lambda: myGame.print_spawn_matrix())}
+                           # debug stuff
+                           # 'P': (lambda: print(type(myGame.active_tetramino.tetramino_matrix), 
+                               # type(myGame.active_tetramino.tetramino_matrix[0])))}
+                           # this gives the expected output -- `list` , `list`
+                           'P': (lambda: myGame.print_spawned_tetramino())}
 
     while True:
         for choice in raw_input().split(' '):
