@@ -35,4 +35,7 @@ if __name__ == '__main__':
 
     while True:
         for choice in raw_input().split(' '):
+            if len(choice) > 1 and not choice[0] == '?':
+                for ch in choice:
+                    execute_instruction[ch]()
             execute_instruction[choice]()
