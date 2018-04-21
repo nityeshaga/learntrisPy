@@ -37,4 +37,5 @@ if __name__ == '__main__':
             if len(choice) > 1 and not choice[0] == '?':
                 for ch in choice:
                     execute_instruction[ch]()
+                continue
             execute_instruction[choice]()
