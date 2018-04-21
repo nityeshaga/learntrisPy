@@ -11,6 +11,7 @@ TETRAMINO_DICT = {'I': [list(elem) for elem in ['....', 'cccc', '....', '....']]
 class Tetramino:
     def __init__(self, shape):
         self.tetramino_matrix = TETRAMINO_DICT[shape]
+        self.type = shape
 
     def show(self):
         print_matrix(self.tetramino_matrix)

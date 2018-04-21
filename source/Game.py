@@ -9,6 +9,10 @@ class Game:
 
         # PLAY_AREA: a list of strings where each string represents one row
         self.PLAY_AREA = [list('.' * self.N_COLUMNS) for row in range(self.N_ROWS)]
+
+        # for debugging purposes
+        # print(type(self.PLAY_AREA), type(self.PLAY_AREA[0]))
+        
         self.SCORE = 0
         self.N_LINES_CLEARED = 0
         self.active_tetramino = Tetramino('I') # default value -- the I tetramino
@@ -38,5 +42,20 @@ class Game:
     def set_active_tetramino(self, tetramino_key):
         self.active_tetramino = Tetramino(tetramino_key)
 
-    def print_spawn_matrix(self):
-        size = len(self.active_tetramino.tetramino_matrix)
+    def print_spawned_tetramino(self):
+
+        # debug stuff
+        print(type(self.PLAY_AREA), type(self.PLAY_AREA[0]))
+        # this should show the types to be `list` , `list` instead
+        # of `list` , `string`
+
+        if len(self.active_tetramino.tetramino_matrix) == 2:
+            self.spawn_active_tetramino(row_num=0, col_num=4)
+        else:
+            self.spawn_active_tetramino(row_num=0, col_num=3)
+
+    def spawn_active_tetramino(self, row_num=0, col_num=0):
+        active_tetramino_size = len(self.active_tetramino.tetramino_matrix)
+        for row_idx in range(row_num, row_num+active_tetramino_size):
+            self.PLAY_AREA[row_idx][col_num:col_num+active_tetramino_size] = \
+                    self.active_tetramino.tetramino_matrix[row_idx][:]
