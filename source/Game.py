@@ -1,4 +1,6 @@
 from __future__ import print_function
+from copy import deepcopy
+
 from Tetramino import Tetramino
 from helper import print_matrix
 
@@ -9,10 +11,25 @@ class Game:
 
         # PLAY_AREA: a list of strings where each string represents one row
         self.PLAY_AREA = [list('.' * self.N_COLUMNS) for row in range(self.N_ROWS)]
+
+        self.temp_PLAY_AREA = None
         
         self.SCORE = 0
         self.N_LINES_CLEARED = 0
         self.active_tetramino = Tetramino('I') # default value -- the I tetramino
+        self._active_tetramino_rnum = None
+        self._active_tetramino_cnum = None
+
+    def _set_active_tetramino_position(self, rnum=0, cnum=0):
+        '''
+        Changes the position of active tetramino if possible.
+        :param rnum:
+            The row index of the new position of the active tetramino
+        :param cnum:
+            The column index of the new position of the active tetramino
+        '''
+        self._active_tetramino_cnum = cnum
+        self._active_tetramino_rnum = rnum
 
     def read_play_area(self):
         for rnum in range(22):
@@ -38,17 +55,35 @@ class Game:
 
     def set_active_tetramino(self, tetramino_key):
         self.active_tetramino = Tetramino(tetramino_key)
-
-    def print_spawned_tetramino(self):
+        self._active_tetramino_rnum = 0
         if len(self.active_tetramino.tetramino_matrix) == 2:
-            self.spawn_active_tetramino(row_num=0, col_num=4)
+            self._active_tetramino_cnum = 4
         else:
-            self.spawn_active_tetramino(row_num=0, col_num=3)
-        print_matrix(self.PLAY_AREA)
+            self._active_tetramino_cnum = 3
 
-    def spawn_active_tetramino(self, row_num=0, col_num=0):
+    def print_active_tetramino_on_matrix(self):
+        self.spawn_active_tetramino()
+        print_matrix(self.temp_PLAY_AREA)
+
+    def spawn_active_tetramino(self):
+        self.temp_PLAY_AREA = deepcopy(self.PLAY_AREA)
         active_tetramino_size = len(self.active_tetramino.tetramino_matrix)
-        for row_idx in range(row_num, row_num+active_tetramino_size):
-            self.PLAY_AREA[row_idx][col_num:col_num+active_tetramino_size] = \
-                    [ch.upper() for ch in 
-                            self.active_tetramino.tetramino_matrix[row_idx][:]]
+        for row_idx in range(self._active_tetramino_rnum, 
+                             self._active_tetramino_rnum+active_tetramino_size):
+            self.temp_PLAY_AREA[row_idx][self._active_tetramino_cnum : 
+                    self._active_tetramino_cnum+active_tetramino_size] = \
+                    [ch.upper() for ch in self.active_tetramino.tetramino_matrix
+                            [row_idx - self._active_tetramino_rnum][:]]
+
+    def nudge_active_tetramino_left(self): 
+        self._set_active_tetramino_position(cnum=self._active_tetramino_cnum-1,
+                                            rnum=self._active_tetramino_rnum)
+
+    def nudge_active_tetramino_right(self): 
+        self._set_active_tetramino_position(cnum=self._active_tetramino_cnum+1,
+                                            rnum=self._active_tetramino_rnum)
+
+    def nudge_active_tetramino_down(self):
+        self._set_active_tetramino_position(cnum=self._active_tetramino_cnum,
+                                            rnum=self._active_tetramino_rnum+1)
+
